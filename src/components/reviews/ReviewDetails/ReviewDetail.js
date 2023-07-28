@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import FilterSearch from "./FilterSearch/FilterSearch";
-import CommentUsers from "./CommentUsers/CommentUsers";
-import { DetailCarousel } from "./Carousels/DetailCarousel";
+import FilterSearch from "../../reviewDetails/reviewFilterSearch/FilterSearch";
+import CommentUsers from "./reviewCommentUsers/CommentUsers";
+import { DetailCarousel } from "./reviewCarousels/DetailCarousel";
 
 export default function ReviewDetail() {
   const id = useParams();

@@ -1,12 +1,11 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Reviews from "../views/Reviews/Reviews";
+import Reviews from "../components/reviews/Reviews";
 import Products from "../components/Products/Products";
 import Shops from "../components/Shops/Shops";
 import Error from "../components/Error/Error";
-import NavbarDashboard from "../components/Navbar/NavbarDashboard";
-import NavbarForSetting from "../components/Navbar/NavbarForSetting";
-import ReviewDetail from "../views/Reviews/ReviewDetails/ReviewDetail";
+import NavbarForSetting from "../components/Sidebar/NavbarForSetting";
+import ReviewDetail from "../components/reviews/ReviewDetails/ReviewDetail";
 
 export default function RouterList() {
   return (

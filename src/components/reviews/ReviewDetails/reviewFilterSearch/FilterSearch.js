@@ -4,7 +4,7 @@ import {
   SearchIcon,
   StarIcon,
   StarOutlineIcon,
-} from "../../../../assets/icons";
+} from "../../../assets/icons";
 import { Popover } from "antd";
 import { BiChevronDown } from "react-icons/bi";
 

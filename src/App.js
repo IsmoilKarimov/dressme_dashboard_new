@@ -2,7 +2,7 @@
 
 import { BrowserRouter } from "react-router-dom";
 import RouterList from "./root/RouterList";
-import NavbarDashboard from "./components/Navbar/NavbarDashboard";
+import NavbarDashboard from "./components/Sidebar/NabvarDashboard";
 
 function App() {
   return <NavbarDashboard />;
