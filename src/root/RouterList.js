@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Products from "../components/Products/Products";
-// import Shops from "../components/Shops/Shops";
 import Error from "../components/Error/Error";
 import NavbarForSetting from "../components/Navbar/NavbarForSetting";
 import ReviewDetail from "../components/Reviews/ReviewDetails/ReviewDetail";
 import Reviews from "../components/Reviews/Reviews";
-// import AddShop from "../components/AddShop/Shops";
 import ProductsPageTwo from "../components/Products/AddingProductPageTwo/ProductsPageTwo";
 import MarketStore from "../components/MarketStore";
 import AddLocation from "../components/MarketStore/AddMarket/AddLocation/AddLocation";
-import Clothes from "../components/Clothes/Clothes";
-import MarketEdit from "../components/MarketStore/Market_Edit/MarketEdit";
 import AddStore from "../components/MarketStore/AddMarket/AddStore/AddStore";
 import MyMarket from "../components/MarketStore/MyMarket/MyMarket";
+import Clothes from "../components/MarketLocations/Clothes";
+import MarketEdit from "../components/MarketStore/Market_Edit/MarketEdit";
 
 export default function RouterList() {
   const [isItMarket, setIsItMarket] = useState(false);
@@ -27,7 +25,6 @@ export default function RouterList() {
 
         {/* ---------------------Store------------------------- */}
         <Route path="/store" element={<MarketStore />}>
-          {/* <Route path="/store" element={<MarketStore />} /> */}
           {isItMarket ? (
             <Route index element={<AddStore />} />
           ) : (
@@ -38,7 +35,6 @@ export default function RouterList() {
           <Route path="/store/market-list" element={<MyMarket />} />
           <Route path="/store/location-add" element={<AddLocation />} />
 
-          {/* <Route path="/store/list" element={<AddLocation />} /> */}
           <Route path="/store/list/:id" element={<MarketEdit />} />
         </Route>
 

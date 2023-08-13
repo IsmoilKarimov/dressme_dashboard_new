@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import {
-  BgSelectSkin,
-  CopyIcon,
-  LocationIcon,
-  StarLabel,
-} from "../../../assets/icons";
+import { LocationIcon, StarLabel } from "../../../assets/icons";
 import { adidas, backImg } from "../../../assets";
-// import AddBtn from "../../../Products/AddingProductPageTwo/AddingProduct/AddBtn/AddBtn";
-// import { StarLabel } from "../../../assets/icons";
-import { Button, message, Space } from "antd";
+
+import { message } from "antd";
 
 function MarketEdit() {
   const [messageApi, contextHolder] = message.useMessage();
@@ -26,12 +20,7 @@ function MarketEdit() {
       content: "Удалить",
     });
   };
-  // const warning = () => {
-  //   messageApi.open({
-  //     type: "warning",
-  //     content: "Delete",
-  //   });
-  // };
+
   const navigate = useNavigate();
   const goStore = (id) => {
     navigate(`/store`);
