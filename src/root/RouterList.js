@@ -37,7 +37,6 @@ export default function RouterList() {
 
           <Route path="/store/list/:id" element={<MarketEdit />} />
         </Route>
-
         {/* ---------------------Store------------------------- */}
 
         <Route path="/store-location" element={<Clothes />} />
