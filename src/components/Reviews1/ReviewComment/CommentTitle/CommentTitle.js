@@ -6,7 +6,7 @@ import {
   StarIcon,
   StarOutlineIcon,
 } from "../../../../assets/icons";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useHttp } from "../../../../hook/useHttp";
 
 const CommentTitle = () => {
@@ -15,26 +15,9 @@ const CommentTitle = () => {
   const [state, setState] = useState({
     sendAnswer: false,
     startReviews: true,
-    // userInfo: [
-    //   {
-    //     id: 1,
-    //     userName: "Umar",
-    //     userImg:
-    //       "https://storage.kun.uz/source/thumbnails/_medium/9/I0iHdUWlWwccLwGsh3rqHOJznm3TsLI3_medium.jpg",
-    //     starCount: 5,
-    //     date: "19 февраля 2023 г.",
-    //     userFeedback:
-    //       "Качество среднее но стоит своих денег точно мне понравилась классный оверсайз. Качество среднее но стоит своих денег точно мне понравилась классный оверсайз.",
-    //     wearSubject: [
-    //       {
-    //         id: 1,
-    //         subjectBrand: "Ответ Nike Store Official Dealer",
-    //         subjectReply: "Спасибо вам за оценку!",
-    //         replyDate: "26 февраля 2023 г.",
-    //       },
-    //     ],
-    //   },
-    // ],
+    replyText: null,
+    getUserId: null,
+  
   });
 
   // ------------GET Has Reviews-STORE ?-----------------
@@ -47,7 +30,7 @@ const CommentTitle = () => {
       onSuccess: (res) => {
         if (res) {
           setCommnetStore(res.shops.data);
-          // console.log(res.shops.data, "Comments-STORE-Review");
+          console.log(res.shops.data, "Comments-STORE-Review");
         }
       },
       onError: (err) => {
@@ -57,6 +40,35 @@ const CommentTitle = () => {
       refetchOnWindowFocus: false,
     }
   );
+
+  const url = "https://api.dressme.uz/api/seller/reply";
+
+  const { mutate } = useMutation(() => {
+    return fetch(`https://api.dressme.uz/api/seller/reply`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("DressmeUserToken")}`,
+      },
+      body: JSON.stringify({ reply: state?.replyText, id: "13" }),
+      // body: JSON.stringify({ reply: state?.replyText, id: state?.getUserId }),
+    }).then((res) => res.json());
+  });
+  console.log(state?.getUserId, " state?.getUserId");
+  function sendReplyText() {
+    // setState({ ...state, getUserId: id });
+    mutate(
+      {},
+      {
+        onSuccess: (res) => {
+          console.log(res, "BUReplySuccess");
+        },
+        onError: (err) => {
+          console.log(err, "BUReplError");
+        },
+      }
+    );
+  }
 
   useEffect(() => {
     window.scrollTo({
@@ -69,7 +81,8 @@ const CommentTitle = () => {
       <div className="pb-1 md:justify-end text-tableTextTitle2 text-xl not-italic font-AeonikProMedium flex items-center md:gap-x-4 mt-[37px] mb-[18px] md:mt-0 md:mb-0">
         <p className="mr-[10px] md:ml-0"> Отзывы клиентов</p>
         <span className="block md:hidden text-xs text-mobileTextColor mt-[3px]">
-          ( {commentStore?.ratings?.length ? commentStore?.ratings?.length : 0} отзывы ){" "}
+          ( {commentStore?.ratings?.length ? commentStore?.ratings?.length : 0}{" "}
+          отзывы ){" "}
         </span>
       </div>
 
@@ -131,11 +144,15 @@ const CommentTitle = () => {
       )}
 
       {commentStore?.map((data) => {
+        // console.log(data, "Ratings_DATA");
         return (
           <div key={data.id}>
             {data?.ratings.map((item) => {
               return (
-                <div key={item.id} className="w-full h-fit border border-lightBorderColor rounded-[5px] p-[15px] mb-[10px] md:mb-0">
+                <div
+                  key={item.id}
+                  className="w-full h-fit border border-lightBorderColor rounded-[5px] p-[15px] mb-[10px] md:mb-0"
+                >
                   {/* userImg and Date */}
                   <div className="w-full md:p-[15px] mb-5 md:mb-0 h-fit flex justify-between">
                     <div className="h-10 w-fit flex items-center gap-x-[15px]">
@@ -197,10 +214,21 @@ const CommentTitle = () => {
                           name="answer"
                           id="answer"
                           className="w-full md:w-4/5 h-12 text-[13px] md:text-base md:h-14 border rounded-lg p-3 md:mr-[20px] xxl:mr-[30px]"
+                          value={state?.replyText}
+                          onChange={(e) =>
+                            setState({ ...state, replyText: e.target.value })
+                          }
                           placeholder="Add your answer..."
                         ></textarea>
                         <div className="flex items-center ml-auto mt-3 md:mt-0">
-                          <button className="w-[132px] h-9 md:py-0 md:h-11 bg-textBlueColor flex items-center justify-center active:scale-95  active:opacity-70 text-white rounded-lg mr-[10px]">
+                          <button
+                            onClick={() => {
+                              setState({ ...state, getUserId: item?.user?.id });
+
+                              sendReplyText();
+                            }}
+                            className="w-[132px] h-9 md:py-0 md:h-11 bg-textBlueColor flex items-center justify-center active:scale-95  active:opacity-70 text-white rounded-lg mr-[10px]"
+                          >
                             <span className="text-[13px] md:text-sm not-italic font-AeonikProMedium">
                               Отправить
                             </span>
@@ -236,4 +264,3 @@ const CommentTitle = () => {
   );
 };
 export { CommentTitle };
-
