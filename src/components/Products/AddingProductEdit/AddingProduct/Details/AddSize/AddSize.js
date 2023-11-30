@@ -120,10 +120,10 @@ function AddSize({ handleCallBack, typeId }) {
         setToggleShow(false)
     }
     const handleChangePrice = (event) => {
-        const { value } = event.target;
+        const result = event.target.value.replace(/\D/g, '')
 
         // Remove any existing commas from the input
-        const sanitizedValue = value.replace(/,/g, '');
+        const sanitizedValue = result.replace(/,/g, '');
 
         // Format the number with commas
         const formattedValue = Number(sanitizedValue).toLocaleString()
@@ -131,10 +131,10 @@ function AddSize({ handleCallBack, typeId }) {
         setState({ ...state, priceNum: formattedValue });
     };
     const handleChangeSalePrice = (event) => {
-        const { value } = event.target;
+        const result = event.target.value.replace(/\D/g, '')
 
         // Remove any existing commas from the input
-        const sanitizedValue = value.replace(/,/g, '');
+        const sanitizedValue = result.replace(/,/g, '');
 
         // Format the number with commas
         const formattedValue = Number(sanitizedValue).toLocaleString()
@@ -252,7 +252,7 @@ function AddSize({ handleCallBack, typeId }) {
                                 </div>
                                 <label htmlFor="enterPrice" className={`w-full h-[40px] flex items-center ${state?.isCheckValid && !state?.priceNum ? "border border-[#FFB8B8] bg-[#FFF6F6]" : "border border-borderColor bg-white"} px-3 py-[6px] rounded-lg text-xs`}>
                                     <input
-                                        type="number"
+                                        type="text"
                                         placeholder="0"
                                         id="enterPrice"
                                         className="inputStyle w-[70%] font-AeonikProMedium outline-none bg-transparent"
@@ -296,7 +296,7 @@ function AddSize({ handleCallBack, typeId }) {
                                     <div className="w-[60%] md:w-[75%] flex items-center">
                                         <label htmlFor="discountPrice" className="w-full h-[40px] flex items-center justify-between border border-borderColor px-3 py-[6px] rounded-lg text-xs">
                                             <input
-                                                type="number"
+                                                type="text"
                                                 placeholder="0"
                                                 id="discountPrice"
                                                 className="inputStyle w-[75%] font-AeonikProMedium outline-none bg-transparent"
@@ -703,7 +703,7 @@ function AddSize({ handleCallBack, typeId }) {
                                 </div>
                                 <label htmlFor="priceOutWear" className={`w-full h-[40px] flex items-center  ${state?.isCheckValid && !state?.priceNum ? " border border-[#FFB8B8] bg-[#FFF6F6]" : "border border-borderColor bg-white"} px-3 py-[6px] rounded-lg text-xs`}>
                                     <input
-                                        type="number"
+                                        type="text"
                                         placeholder="0"
                                         id="priceOutWear"
                                         className="inputStyle w-[70%] font-AeonikProMedium outline-none bg-transparent "
@@ -746,7 +746,7 @@ function AddSize({ handleCallBack, typeId }) {
                                     <div className="w-[60%] md:w-[75%] flex items-center">
                                         <label htmlFor="salePrice" className="w-full h-[40px] flex items-center justify-between bg-white border border-borderColor px-3 py-[6px] rounded-lg text-xs">
                                             <input
-                                                type="number"
+                                                type="text"
                                                 placeholder="0"
                                                 id="salePrice"
                                                 className="inputStyle w-[75%] font-AeonikProMedium outline-none bg-transparent"
@@ -1159,7 +1159,7 @@ function AddSize({ handleCallBack, typeId }) {
                                 </div>
                                 <label htmlFor="priceNum" className={`w-full h-[40px] flex items-center ${state?.isCheckValid && !state?.priceNum ? "border border-[#FFB8B8] bg-[#FFF6F6]" : "border border-borderColor bg-white"}  px-3 py-[6px] rounded-lg text-xs`}>
                                     <input
-                                        type="number"
+                                        type="text"
                                         placeholder="0"
                                         id="priceNum"
                                         className="inputStyle w-[70%] font-AeonikProMedium outline-none bg-transparent"
@@ -1202,7 +1202,7 @@ function AddSize({ handleCallBack, typeId }) {
                                     <div className="w-[60%] md:w-[75%] flex items-center">
                                         <label htmlFor="salePrice" className="w-full h-[40px] flex items-center justify-between bg-white border border-borderColor px-3 py-[6px] rounded-lg text-xs">
                                             <input
-                                                type="number"
+                                                type="text"
                                                 placeholder="0"
                                                 id="salePrice"
                                                 className="inputStyle w-[75%] font-AeonikProMedium outline-none bg-transparent"
@@ -1336,7 +1336,7 @@ function AddSize({ handleCallBack, typeId }) {
                                 </div>
                                 <label htmlFor="priceShoes" className={`w-full h-[40px] flex items-center ${state?.isCheckValid && !state?.priceNum ? "border border-[#FFB8B8] bg-[#FFF6F6]" : "border border-borderColor bg-white"}   px-3 py-[6px] rounded-lg text-xs `}>
                                     <input
-                                        type="number"
+                                        type="text"
                                         id="priceShoes"
                                         placeholder="0"
                                         className="inputStyle w-[70%] font-AeonikProMedium outline-none bg-transparent"
@@ -1379,7 +1379,7 @@ function AddSize({ handleCallBack, typeId }) {
                                     <div className="w-[60%] md:w-[75%] flex items-center">
                                         <label htmlFor="salePrice" className="w-full h-[40px] flex items-center justify-between bg-white border border-borderColor px-3 py-[6px] rounded-lg text-xs">
                                             <input
-                                                type="number"
+                                                type="text"
                                                 placeholder="0"
                                                 id="salePrice"
                                                 className="inputStyle w-[75%] font-AeonikProMedium outline-none "
@@ -1718,7 +1718,7 @@ function AddSize({ handleCallBack, typeId }) {
                                 </div>
                                 <label htmlFor="priceAccess" className={`w-full h-[40px] flex items-center ${state?.isCheckValid && !state?.priceNum ? "border border-[#FFB8B8] bg-[#FFF6F6]" : "border border-borderColor bg-white"}    px-3 py-[6px] rounded-lg text-xs`}>
                                     <input
-                                        type="number"
+                                        type="text"
                                         placeholder="0"
                                         id="priceAccess"
                                         className="inputStyle w-[70%] font-AeonikProMedium outline-none bg-transparent"
@@ -1761,7 +1761,7 @@ function AddSize({ handleCallBack, typeId }) {
                                     <div className="w-[60%] md:w-[75%] flex items-center">
                                         <label htmlFor="salePrice" className="w-full h-[40px] flex items-center justify-between bg-white border border-borderColor px-3 py-[6px] rounded-lg text-xs">
                                             <input
-                                                type="number"
+                                                type="text"
                                                 placeholder="0"
                                                 id="salePrice"
                                                 className="inputStyle w-[75%] font-AeonikProMedium outline-none "

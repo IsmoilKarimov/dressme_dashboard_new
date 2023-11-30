@@ -31,8 +31,7 @@ function UnderAddWear({ title, typeId, handleCallBack }) {
     useEffect(() => {
         if (state?.salePercent > 0) {
             const sale = state?.priceNum?.split(",")?.join("") * (100 - state?.salePercent) / 100
-            console.log(sale, "sale");
-            setState({ ...state, salePrice: sale })
+            setState({ ...state, salePrice: Math.trunc(sale) })
         } else {
             setState({ ...state, salePrice: '' })
         }
@@ -126,10 +125,10 @@ function UnderAddWear({ title, typeId, handleCallBack }) {
         setToggleShow(false)
     }
     const handleChangePrice = (event) => {
-        const { value } = event.target;
+        const result = event.target.value.replace(/\D/g, '')
 
         // Remove any existing commas from the input
-        const sanitizedValue = value.replace(/,/g, '');
+        const sanitizedValue = result.replace(/,/g, '');
 
         // Format the number with commas
         const formattedValue = Number(sanitizedValue).toLocaleString()
@@ -137,17 +136,22 @@ function UnderAddWear({ title, typeId, handleCallBack }) {
         setState({ ...state, priceNum: formattedValue });
     };
     const handleChangeSalePrice = (event) => {
-        const { value } = event.target;
+        const result = event.target.value.replace(/\D/g, '')
 
         // Remove any existing commas from the input
-        const sanitizedValue = value.replace(/,/g, '');
+        const sanitizedValue = result.replace(/,/g, '');
 
         // Format the number with commas
         const formattedValue = Number(sanitizedValue).toLocaleString()
 
         setState({ ...state, salePrice: formattedValue });
     };
-
+    const handleChangePercent = (event) => {
+        const { value } = event.target
+        if (value >= 0 && value < 100) {
+            setState({ ...state, salePercent: value });
+        }
+    };
     const contentUnderWear = (
         <div className="w-[840px] h-fit">
             <div
@@ -536,7 +540,8 @@ function UnderAddWear({ title, typeId, handleCallBack }) {
                             </div>
                             <label htmlFor="priceNum" className={`w-full h-[40px] flex items-center ${state?.isCheckValid && !state?.priceNum ? "border border-[#FFB8B8] bg-[#FFF6F6]" : "border border-borderColor bg-white"}  px-3 py-[6px] rounded-lg text-xs`}>
                                 <input
-                                    type="number"
+                                    type="text"
+                                    pattern="[0-9.]+"
                                     placeholder="0"
                                     id="priceNum"
                                     className="inputStyle w-[70%] font-AeonikProMedium outline-none bg-transparent"
@@ -570,7 +575,7 @@ function UnderAddWear({ title, typeId, handleCallBack }) {
                                             placeholder="0"
                                             className="inputStyle w-[70%] font-AeonikProMedium text-start outline-none flex items-center justify-center mx-auto"
                                             value={state?.salePercent}
-                                            onChange={(e) => setState({ ...state, salePercent: e.target.value })}
+                                            onChange={handleChangePercent}
                                         />
                                         <span className="text-textLightColor ml-1">%</span>
                                     </div>
@@ -579,7 +584,8 @@ function UnderAddWear({ title, typeId, handleCallBack }) {
                                 <div className="w-[60%] md:w-[75%] flex items-center">
                                     <label htmlFor="salePrice" className="w-full h-[40px] flex items-center justify-between bg-white border border-borderColor px-3 py-[6px] rounded-lg text-xs">
                                         <input
-                                            type="number"
+                                            type="text"
+                                            pattern="[0-9.]+"
                                             placeholder="0"
                                             id="salePrice"
                                             className="inputStyle w-[75%] font-AeonikProMedium outline-none bg-transparent"

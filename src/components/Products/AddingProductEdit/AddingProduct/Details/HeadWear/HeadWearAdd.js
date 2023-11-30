@@ -89,10 +89,10 @@ function HeadWearAdd({ colorGroup, sizeOfColor, stateList, handleCallBack }) {
         handleCallBack()
     }
     const handleChangePrice = (event) => {
-        const { value } = event.target;
+        const result = event.target.value.replace(/\D/g, '')
 
         // Remove any existing commas from the input
-        const sanitizedValue = value.replace(/,/g, '');
+        const sanitizedValue = result.replace(/,/g, '');
 
         // Format the number with commas
         const formattedValue = Number(sanitizedValue).toLocaleString()
@@ -100,10 +100,10 @@ function HeadWearAdd({ colorGroup, sizeOfColor, stateList, handleCallBack }) {
         setState({ ...state, price: formattedValue });
     };
     const handleChangeSalePrice = (event) => {
-        const { value } = event.target;
+        const result = event.target.value.replace(/\D/g, '')
 
         // Remove any existing commas from the input
-        const sanitizedValue = value.replace(/,/g, '');
+        const sanitizedValue = result.replace(/,/g, '');
 
         // Format the number with commas
         const formattedValue = Number(sanitizedValue).toLocaleString()
@@ -223,7 +223,7 @@ function HeadWearAdd({ colorGroup, sizeOfColor, stateList, handleCallBack }) {
                             </div>
                             <label htmlFor="enterPrice" className={`w-full h-[40px] flex items-center ${state?.isCheckValid && !state?.price ? "border border-[#FFB8B8] bg-[#FFF6F6]" : "border border-borderColor bg-white"} px-3 py-[6px] rounded-lg text-xs`}>
                                 <input
-                                    type="number"
+                                    type="text"
                                     placeholder="0"
                                     id="enterPrice"
                                     className="inputStyle w-[70%] font-AeonikProMedium outline-none bg-transparent"
@@ -268,7 +268,7 @@ function HeadWearAdd({ colorGroup, sizeOfColor, stateList, handleCallBack }) {
                                 <div className="w-[60%] md:w-[75%] flex items-center">
                                     <label htmlFor="discountPrice" className="w-full h-[40px] flex items-center justify-between border border-borderColor px-3 py-[6px] rounded-lg text-xs">
                                         <input
-                                            type="number"
+                                            type="text"
                                             placeholder="0"
                                             id="discountPrice"
                                             className="inputStyle w-[75%] font-AeonikProMedium outline-none bg-transparent"

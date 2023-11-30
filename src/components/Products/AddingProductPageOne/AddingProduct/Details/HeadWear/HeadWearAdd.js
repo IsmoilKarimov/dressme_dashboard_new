@@ -34,10 +34,9 @@ function HeadWearAdd({ title, typeId, handleCallBack }) {
 
     }, [typeId])
     const handleChangePrice = (event) => {
-        const { value } = event.target;
-
+        const result = event.target.value.replace(/\D/g, '')
         // Remove any existing commas from the input
-        const sanitizedValue = value.replace(/,/g, '');
+        const sanitizedValue = result.replace(/,/g, '');
 
         // Format the number with commas
         const formattedValue = Number(sanitizedValue).toLocaleString()
@@ -45,10 +44,10 @@ function HeadWearAdd({ title, typeId, handleCallBack }) {
         setState({ ...state, price: formattedValue });
     };
     const handleChangeSalePrice = (event) => {
-        const { value } = event.target;
+        const result = event.target.value.replace(/\D/g, '')
 
         // Remove any existing commas from the input
-        const sanitizedValue = value.replace(/,/g, '');
+        const sanitizedValue = result.replace(/,/g, '');
 
         // Format the number with commas
         const formattedValue = Number(sanitizedValue).toLocaleString()
@@ -60,7 +59,7 @@ function HeadWearAdd({ title, typeId, handleCallBack }) {
         if (state?.discountPercent > 0) {
             const value = state?.price?.split(",")?.join("") * (100 - state?.discountPercent) / 100
 
-            setState({ ...state, discountPrice: value })
+            setState({ ...state, discountPrice: Math.trunc(value) })
         } else {
             setState({ ...state, discountPrice: '' })
         }
@@ -77,6 +76,12 @@ function HeadWearAdd({ title, typeId, handleCallBack }) {
     //         setState({ ...state, discountPercent: '' })
     //     }
     // }, [state?.discountPrice])
+    const handleChangePercent = (event) => {
+        const { value } = event.target
+        if (value >= 0 && value < 100) {
+            setState({ ...state, discountPercent: value });
+        }
+    };
 
 
 
@@ -238,7 +243,9 @@ function HeadWearAdd({ title, typeId, handleCallBack }) {
                             </div>
                             <label htmlFor="enterPrice" className={`w-full h-[40px] flex items-center ${state?.isCheckValid && !state?.price ? "border border-[#FFB8B8] bg-[#FFF6F6]" : "border border-borderColor bg-white"} px-3 py-[6px] rounded-lg text-xs`}>
                                 <input
-                                    type="number"
+                                    type="text"
+                                    pattern="[0-9.]+"
+
                                     placeholder="0"
                                     id="enterPrice"
                                     className="inputStyle w-[70%] font-AeonikProMedium outline-none bg-transparent"
@@ -273,7 +280,7 @@ function HeadWearAdd({ title, typeId, handleCallBack }) {
                                             placeholder="0"
                                             className="inputStyle w-[70%] font-AeonikProMedium text-start outline-none flex items-center justify-center mx-auto"
                                             value={state?.discountPercent}
-                                            onChange={(e) => setState({ ...state, discountPercent: e.target.value })}
+                                            onChange={handleChangePercent}
                                         />
                                         <span className="text-textLightColor ml-1">%</span>
                                     </div>
@@ -282,7 +289,9 @@ function HeadWearAdd({ title, typeId, handleCallBack }) {
                                 <div className="w-[60%] md:w-[75%] flex items-center">
                                     <label htmlFor="discountPrice" className="w-full h-[40px] flex items-center justify-between border border-borderColor px-3 py-[6px] rounded-lg text-xs">
                                         <input
-                                            type="number"
+                                            type="text"
+                                            pattern="[0-9.]+"
+
                                             placeholder="0"
                                             id="discountPrice"
                                             className="inputStyle w-[75%] font-AeonikProMedium outline-none bg-transparent"
