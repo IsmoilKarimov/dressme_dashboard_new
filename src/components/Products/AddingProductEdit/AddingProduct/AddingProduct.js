@@ -313,7 +313,7 @@ const AddingProduct = () => {
   // }, [colors_Id])
 
   useEffect(() => {
-    if (colorChecked !== selectColorID) {
+    if (colorChecked !== selectColorID && selectColorID > 0) {
       setColorAction(true)
     } else {
       setColorAction(false)

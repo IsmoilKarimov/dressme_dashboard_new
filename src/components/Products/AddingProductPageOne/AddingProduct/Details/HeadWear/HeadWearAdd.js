@@ -33,6 +33,7 @@ function HeadWearAdd({ title, typeId, handleCallBack }) {
         }
 
     }, [typeId])
+
     const handleChangePrice = (event) => {
         const result = event.target.value.replace(/\D/g, '')
         // Remove any existing commas from the input
@@ -65,7 +66,7 @@ function HeadWearAdd({ title, typeId, handleCallBack }) {
         }
 
 
-    }, [state?.discountPercent || state?.price])
+
 
     // useEffect(() => {
     //     if (state?.discountPrice > 0) {
@@ -85,7 +86,7 @@ function HeadWearAdd({ title, typeId, handleCallBack }) {
 
 
 
-
+ 
 
     const onChangeSwitch = (checked) => {
         setState({ ...state, sizeCheck: checked })
@@ -134,6 +135,19 @@ function HeadWearAdd({ title, typeId, handleCallBack }) {
     }
 
 
+
+    // useEffect(() => {
+    //     if (state?.discountPercent > 0) {
+    //         const value = state?.price?.split(",")?.join("") * (100 - state?.discountPercent) / 100
+
+    //         setState({ ...state, discountPrice: value })
+    //     } else {
+    //         setState({ ...state, discountPrice: '' })
+    //     }
+
+
+    // }, [state?.discountPercent || state?.price])
+    console.log("ishladi Headwear");
     const contentHat = (
         <div className="w-[520px] h-fit">
             <div

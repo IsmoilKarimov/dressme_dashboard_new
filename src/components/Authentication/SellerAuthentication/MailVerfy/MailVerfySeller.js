@@ -1,155 +1,113 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useMutation } from "@tanstack/react-query";
 import { SircleNext, UserMailIcon } from "../../../../assets/icons";
-import { dressMainData } from "../../../../hook/ContextTeam";
-
 
 export default function MailVerfySeller() {
-  const [dressInfo, setDressInfo] = useContext(dressMainData);
-
+  const [timer, setTimer] = useState(false);
+  const navigate = useNavigate();
+  const [error, setError] = useState(false);
   const [state, setState] = useState({
     eyesShow: true,
     password: "",
     email: "",
     rememberCheck: "",
-    // get method 
     getVerfyMessage: "",
-    // errorMesage
-    errorMessage: ""
+    errorMessage: "",
+    errorsGroup: null,
   });
 
+  const setTimeForNotif = () => {
+    setTimer(true);
+    setTimeout(() => {
+      setTimer(false);
+    }, 3000);
+  };
   const handleChange = (e) => {
-
     const { checked } = e.target;
-    setState({ ...state, rememberCheck: checked })
-  }
+    setState({ ...state, rememberCheck: checked });
+  };
   const pathname = window.location.pathname;
-
-  let PathnameToken = pathname.replace("/mail-verify-seller/:", "")
-
-
-  const navigate = useNavigate();
-  const [error, setError] = useState(false);
+  let PathnameToken = pathname.replace("/mail-verify-seller/:", "");
+  
   const url = "https://api.dressme.uz/api/seller";
-
-
   React.useEffect(() => {
     fetch(`${url}/email-verify/${PathnameToken ? PathnameToken : null}`)
-      .then(results => results.json())
-      .then(data => {
-        setState({ ...state, getVerfyMessage: data })
+      .then((results) => results.json())
+      .then((data) => {
+        setState({ ...state, getVerfyMessage: data });
         console.log(data, "Return Get method");
       });
   }, []);
 
-
   const dataMutate = useMutation(() => {
     return fetch(`${url}/login`, {
       method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({ email: state.email, password: state.password, rememberToken: state?.rememberCheck }),
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email: state.email,
+        password: state.password,
+        rememberToken: state?.rememberCheck,
+      }),
     }).then((res) => res.json());
   });
-  const EnterTheSystem = () => {
-    // console.log(state?.email, "email");
-    // console.log(state?.password, "password");
-    // console.log(state?.rememberCheck, "rememberCheck");
-    if (state.email?.length && state.password?.length) {
-      dataMutate.mutate(
-        {},
-        {
-          onSuccess: (res) => {
-            // console.log(res, "MailVerfySeller");
-            if (res?.access_token) {
-              localStorage.setItem("DressmeUserToken", res?.access_token);
-              toast.success("Muaffaqiyatli kirdingiz", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-              navigate("/edit-profile")
-              window.location.reload();
-              setState({ ...state, email: "", password: "" });
 
-            } else if (res?.message && res?.err) {
-              setError("Email yoki parolda xatolik");
-              setState({ ...state, errorMessage: res?.message })
-              toast.error(`${res?.message}`, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-            }
-          },
-          onError: (err) => {
-            toast.error("Serverda xatolik", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
+  const EnterTheSystem = () => {
+    dataMutate.mutate(
+      {},
+      {
+        onSuccess: (res) => {
+          console.log(res, "RES-AUTH");
+          if (res?.message && !res.errors) {
+            setState({ ...state, errorsGroup: res });
+          } else if (res?.message && res?.errors) {
+            setState({
+              ...state,
+              errorsGroup: res,
+              errorMessage: res?.message,
             });
-          },
-        }
-      );
-    } else {
-      setError("Bush maydon junatish mumkin emas");
-      toast.warning("Iltimos Malumotlarni kiriting", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
+          } else if (res?.access_token) {
+            localStorage.setItem("DressmeUserToken", res?.access_token);
+            navigate("/");
+            window.location.reload();
+            setState({ ...state, email: "", password: "", errorsGroup: "" });
+          }
+        },
+        onError: (err) => {
+          console.log(err, "ERR");
+          setState({ ...state, errorMessage: err?.message });
+        },
+      }
+    );
   };
 
+  function handleAuthSystem() {
+    EnterTheSystem();
+    setTimeForNotif();
+  }
   useEffect(() => {
     document.title = "Подтвердить адрес электронной почты";
   }, []);
 
   return (
     <div className=" w-full h-[calc(100vh-110px)] px-4 md:px-0 flex flex-col items-center justify-center">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        limit={4}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
-      {/* <div>{PathnameToken}</div> */}
       <div className="max-w-[650px] w-[100%] flex flex-col items-center justify-center  h-fit mb-5 px-2">
         <div className="w-full flex items-center justify-center flex-col">
-
-
           <p className="mt-3 not-italic font-AeonikProRegular text-[20px] md:text-[25px] text-center leading-[30px]   tracking-[0,16px] text-black">
-            {state?.getVerfyMessage?.message}</p>
+            {state?.getVerfyMessage?.message}
+          </p>
+          {timer &&
+            state?.errorMessage &&
+            state?.errorsGroup?.errors === true && (
+              <span className="w-full h-fit text-center text-[20px] text-red-500 mt-2">
+                {state?.errorMessage || null}
+              </span>
+            )}
         </div>
         <div className=" w-full pb-[20px] pt-[30px]  md:hidden not-italic font-AeonikProMedium text-xl text-center leading-5   tracking-[0,16px] text-black">
           Вход для продавцов
@@ -168,7 +126,7 @@ export default function MailVerfySeller() {
           </span>
           <div className="mt-[4px]  w-full flex items-center border border-searchBgColor overflow-hidden rounded-lg ">
             <input
-              className="w-full px-2 xs:px-[16px] outline-none	bg-white w-full h-[42px]  placeholder-leading-4 placeholder-tracking-[0,16px] placeholder-not-italic placeholder-font-AeonikProMedium ll:text-[14px] sm:text-[16px] placeholder-text-base placeholder-leading-4 placeholder-text-black"
+              className="w-full h-[42px] px-2 xs:px-[16px] outline-none	bg-white placeholder-leading-4 placeholder-tracking-[0,16px] placeholder-not-italic placeholder-font-AeonikProMedium ll:text-[14px] sm:text-[16px] placeholder-text-base placeholder-leading-4 placeholder-text-black"
               type="email"
               name="email"
               value={state.email}
@@ -183,6 +141,11 @@ export default function MailVerfySeller() {
               <UserMailIcon colors={"#A1A1A1"} />
             </span>
           </div>
+          {state?.errorsGroup?.errors?.email && (
+            <p className="text-[#D50000]  text-[12px] ll:text-[14px] md:text-base">
+              {state?.errorsGroup?.errors?.email}
+            </p>
+          )}
         </div>
         <div className="mt-4 w-full h-fit">
           <span className="flex items-center text-[#303030] text-[14px] xs:text-base not-italic font-AeonikProRegular leading-4 tracking-[0,16px]  ">
@@ -190,7 +153,7 @@ export default function MailVerfySeller() {
           </span>
           <div className="mt-[4px]  w-full flex items-center border border-searchBgColor rounded-lg overflow-hidden">
             <input
-              className="w-full px-2 xs:px-[16px] outline-none	bg-white w-full h-[42px]  placeholder-leading-4 placeholder-tracking-[0,16px] placeholder-not-italic placeholder-font-AeonikProMedium ll:text-[14px] sm:text-[16px] placeholder-text-base placeholder-leading-4 placeholder-text-black"
+              className="w-full h-[42px] px-2 xs:px-[16px] outline-none	bg-white  placeholder-leading-4 placeholder-tracking-[0,16px] placeholder-not-italic placeholder-font-AeonikProMedium ll:text-[14px] sm:text-[16px] placeholder-text-base placeholder-leading-4 placeholder-text-black"
               type={state?.eyesShow ? "password" : "text"}
               name="password"
               placeholder="Enter your password"
@@ -217,8 +180,12 @@ export default function MailVerfySeller() {
               )}
             </span>
           </div>
+          {state?.errorsGroup?.errors?.password && (
+            <p className="text-[#D50000]  text-[12px] ll:text-[14px] md:text-base">
+              {state?.errorsGroup?.errors?.password}
+            </p>
+          )}
         </div>
-        {/* {error?.length ? <div className={`text-[12px] mt-1 text-RedColor`}>{error}</div> : null} */}
 
         <div className="my-5 flex items-center justify-between w-full">
           <div className="flex items-center">
@@ -231,19 +198,16 @@ export default function MailVerfySeller() {
             />
             <label
               htmlFor="vehicle1"
-              className="flex items-center text-[#303030] text-[14px] xs:text-base not-italic font-AeonikProRegular leading-4 tracking-[0,16px] ">
-
+              className="flex items-center text-[#303030] text-[14px] xs:text-base not-italic font-AeonikProRegular leading-4 tracking-[0,16px] "
+            >
               {" "}
-              Помнить
+              Запомнить
             </label>
           </div>
-
         </div>
-        {state?.errorMessage &&
-          <span className="w-full h-fit text-12 text-red-500">{state?.errorMessage || null}</span>}
         <button
           type="button"
-          onClick={EnterTheSystem}
+          onClick={handleAuthSystem}
           className="mt-[50px] border cursor-pointer flex items-center justify-center border-searchBgColor w-full h-12 bg-fullBlue select-none rounded-lg active:scale-95	active:opacity-70 "
         >
           <span className="not-italic font-AeonikProMedium mr-2 text-base leading-4 text-center text-white tracking-[0,16px]">
@@ -253,7 +217,6 @@ export default function MailVerfySeller() {
             <SircleNext colors={"#fff"} />
           </span>
         </button>
-
       </div>
     </div>
   );
