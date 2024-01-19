@@ -175,7 +175,7 @@ function AddStore({ shopsList, onRefetch }) {
                 />
               ) :
                 <span className="leading-none text-lg md:text-sm font-AeonikProRegular md:font-AeonikProMedium text-textBlueColor">
-                  Фото
+                  Фоновое фото
                 </span>
               }
             </div>
@@ -255,7 +255,7 @@ function AddStore({ shopsList, onRefetch }) {
           )
             :
             <span className="leading-none text-[11px] md:text-sm font-AeonikProRegular md:font-AeonikProMedium text-textBlueColor">
-              Фото
+              Фоновое фото
             </span>
           }
           {/* <label
