@@ -1042,7 +1042,9 @@ const AddingProduct = () => {
             <div className="w-full md:mx-[140px] md:mb-[50px] xs:border border-borderColor rounded-xl md:px-0 p-1">
               <div className="w-full h-fit md:relative md:py-12">
                 <div className=" w-full h-fit flex gap-x-4 flex-col-reverse md:flex-row md:px-7 ">
+                  
                   <div className="w-full md:w-[70%] h-fit flex flex-col gap-y-6">
+                    
                     <div className="w-full grid grid-cols-1 xs:grid-cols-2 gap-x-4 gap-y-6 mt-6 md:mt-0">
                       {/* Input Select 1.1 */}
                       <div className=" w-full h-fit flex flex-col gap-y-[5px] overflow-hidden">
@@ -1054,7 +1056,7 @@ const AddingProduct = () => {
                             <StarLabel />
                           </span>
                         </div>
-                        <button
+                        {/* <button
                           type="button"
                           className="w-full h-[40px] rounded-lg flex md:hidden items-center justify-between border border-borderColor px-3"
                         >
@@ -1062,14 +1064,14 @@ const AddingProduct = () => {
                             Выбрать
                           </div>
                           <ArrowRightIcon />
-                        </button>
+                        </button> */}
                         <div
-                          className={`w-full hidden md:flex rounded-lg overflow-hidden`}
+                          className={`w-full flex rounded-lg overflow-hidden`}
                         >
                           {newId ? (
                             <button
                               type="button"
-                              className="w-full h-[40px]  bg-[#F5F5F5] rounded-lg flex items-center justify-between border border-borderColor px-3"
+                              className="w-full h-[40px] bg-[#F5F5F5] rounded-lg flex items-center justify-between border border-borderColor px-3"
                             >
                               <span>
                                 {dressInfo?.getProductInfo?.shops
@@ -1078,14 +1080,14 @@ const AddingProduct = () => {
                                     return (
                                       <span
                                         key={index}
-                                        className=" mt-[3px] font-AeonikProRegular text-[#b5b5b5]"
+                                        className="mt-[3px] font-AeonikProRegular text-[#b5b5b5]"
                                       >
                                         {data?.name}
                                       </span>
                                     );
                                   })}
                               </span>
-                              <span className="rotate-[90deg]">
+                              <span className=" md:rotate-[90deg]">
                                 <ArrowRightIcon />
                               </span>
                             </button>
@@ -1138,7 +1140,7 @@ const AddingProduct = () => {
                             {newId ? <StarLabel /> : null}
                           </span>
                         </div>
-                        <button
+                        {/* <button
                           // onClick={() =>
                           //   setState({ ...state, SubClothingSection: true })
                           // }
@@ -1149,15 +1151,15 @@ const AddingProduct = () => {
                             Выбрать
                           </div>
                           <ArrowRightIcon />
-                        </button>
+                        </button> */}
 
-                        <div className="w-full h-fit hidden md:flex">
+                        <div className="w-full h-fit flex">
                           {dressInfo?.locationIdAddProduct ? (
                             <button
                               type="button"
                               className="w-full overflow-hidden h-[40px] rounded-lg flex items-center  bg-[#F5F5F5] justify-between border border-borderColor px-3"
                             >
-                              <span>
+                              <span className="w-[95%]">
                                 {dressInfo?.getProductInfo?.shops
                                   ?.filter((e) => e?.id == newId)
                                   .map((item) => {
@@ -1173,7 +1175,7 @@ const AddingProduct = () => {
                                         return (
                                           <span
                                             key={index}
-                                            className="w-[95%] overflow-hidden whitespace-nowrap text-[#b5b5b5]	flex items-center  text-[14px] not-italic font-AeonikProRegular"
+                                            className="w-full truncate overflow-hidden whitespace-nowrap text-[#b5b5b5] flex items-center  text-[14px] not-italic font-AeonikProRegular"
                                           >
                                             {data?.address}
                                           </span>
@@ -1181,7 +1183,7 @@ const AddingProduct = () => {
                                       });
                                   })}
                               </span>
-                              <span className="rotate-[90deg]">
+                              <span className="md:rotate-[90deg]">
                                 <ArrowRightIcon />
                               </span>
                             </button>
@@ -2051,7 +2053,10 @@ const AddingProduct = () => {
                         </div>
                       ) : null}
                     </div>
+
                   </div>
+                  
+                  
                   <div className="w-full md:w-[30%] h-fit flex md:flex-col flex-row justify-between md:justify-center gap-x-4 ">
                     <div className="hidden md:flex items-center  justify-start mb-[5px]">
                       <span className="text-base font-AeonikProRegular">
