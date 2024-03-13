@@ -7,8 +7,32 @@
     "votes": "ovozlar",
     "status": "Holat",
     "location": "Joylar",
+    "add_location": "Joylashuvni qo'shing",
     "more_details": "Batafsil",
     "nothing_found": "Hech narsa topilmadi",
+    "select_photo": "Fotosuratni tanlang",
+    "background_photo": "Fon rasmi",
+    "delete": "O'chirish",
+    "cancel": "Bekor qilish",
+    "select_logo": "Logotip tanlang",
+    "trim": "Kesish",
+    "create_a_store": "Do'kon yaratish",
+    "store_name": "Do'kon nomi",
+    "enter_store_name": "Do'kon nomini kiriting",
+    "gender": "Jins",
+    "delivery_method": "Yetkazib berish usuli",
+    "photo": "Rasm",
+    "region": "Mintaqa",
+    "address": "Manzil",
+    "work_time": "Ish vaqti",
+    "cloth": "Kiyim-kechak",
+    "no_location": "Sizda hali joy yo'q !",
+    "sure": "Ishonchingiz komilmi",
+    "change_photo": "Suratni o'zgartirish",
+    "upload_a_photo": "Surat yuklang",
+    "shops": "Do'konlar",
+    "all_locations": "Barcha manzillar",
+    "save": "Saqlash",
 
 
 
@@ -18,7 +42,6 @@
     "reviews": "Sharhlar",
     "reviews_two": "sharhlar",
     "products": "Tovarlar",
-    "shops": "Do'konlar",
     "own_delivery": "Uyga yetkazib berish",
 
     "image": "Rasm",
@@ -34,7 +57,6 @@
     "send": "Jo'natish",
     "answer_two": "Javob",
     "add_answer": "Javobingizni qo'shing ...",
-    "cancel": "Bekor qilish",
     "ready": "Jo'natish"
 
 

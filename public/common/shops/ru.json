@@ -7,8 +7,32 @@
     "votes": "голосов",
     "status": "Cтатус",
     "location": "Локации",
+    "add_location": "Добавить локацию",
     "more_details": "Подробнее",
     "nothing_found": "Ничего не найдено",
+    "select_photo": "Выберите фото",
+    "background_photo": "Фоновое фото",
+    "delete": "Удалить",
+    "cancel": "Отмена",
+    "select_logo": "Выберите логотип",
+    "trim": "Обрезать",
+    "create_a_store": "Создать магазин",
+    "store_name": "Название магазина",
+    "enter_store_name": "Введите название магазина",
+    "gender": "Пол",
+    "delivery_method": "Метод доставки",
+    "photo": "Фото",
+    "region": "Регион",
+    "address": "Адрес",
+    "work_time": "Рабочее время",
+    "cloth": "Одежда",
+    "no_location": "У вас пока нет локации !",
+    "sure": "Вы уверены",
+    "change_photo": "Изменить фото",
+    "upload_a_photo": "Загрузить фото",
+    "shops": "Магазины",
+    "all_locations": "Все локации",
+    "save": "Сохранить",
 
 
 
@@ -17,7 +41,6 @@
     "reviews": "Отзывы",
     "reviews_two": "oтзывы",
     "products": "Товары",
-    "shops": "Магазины",
     "own_delivery": "Собственная доставка",
 
     "image": "Изображение",
@@ -33,7 +56,6 @@
     "send": "Отправить",
     "answer_two": "Ответить",
     "add_answer": "Добавьте свой ответ ...",
-    "cancel": "Отмена",
     "ready": "Готово"
 
 
